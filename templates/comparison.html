@@ -1,0 +1,42 @@
+<!doctype html>
+{% extends 'base.html' %}
+{% block title %}Module 1 – Comparison{% endblock %}
+{% block content %}
+<h2 class="mb-4">FDMA Comparison</h2>
+<div class="mb-3">
+  <label class="form-label">Select Comparison:</label>
+  <select id="compare-select" class="form-select w-50">
+    <option value="FDMA_TDMA">FDMA vs TDMA</option>
+    <option value="FDMA_CDMA">FDMA vs CDMA</option>
+    <option value="FDMA_OFDMA">FDMA vs OFDMA</option>
+    <option value="FDMA_SDMA">FDMA vs SDMA</option>
+  </select>
+</div>
+<div id="comparison-table" class="table-responsive"></div>
+{% endblock %}
+{% block extra_js %}
+<script>
+// Simple static data for illustration (replace with real calculations if needed)
+const techniqueInfo = {
+  FDMA: {principle:"Separate frequencies", allocation:"Freq slots", bandwidth:"Static", dataRate:"Varies", users:"Limited", interference:"Low", spectral:"Varies"},
+  TDMA: {principle:"Time slots", allocation:"Time slots", bandwidth:"Full", dataRate:"Varies", users:"Higher", interference:"Medium", spectral:"Varies"},
+  CDMA: {principle:"Code spreading", allocation:"Code space", bandwidth:"Full", dataRate:"Varies", users:"High", interference:"Higher", spectral:"Varies"},
+  OFDMA: {principle:"Sub‑carriers", allocation:"Sub‑carrier groups", bandwidth:"Flexible", dataRate:"Varies", users:"Very High", interference:"Low", spectral:"Varies"},
+  SDMA: {principle:"Spatial beams", allocation:"Beams", bandwidth:"Full", dataRate:"Varies", users:"Massive", interference:"Low", spectral:"Varies"}
+};
+function renderComparison(){
+  const sel = document.getElementById('compare-select').value;
+  const [t1, t2] = sel.split('_');
+  const cols = ["Principle","Allocation","Bandwidth","Data Rate","Users","Interference","Spectral Efficiency"];
+  let html = `<table class="table table-dark table-striped"><thead><tr><th>Metric</th><th>${t1}</th><th>${t2}</th></tr></thead><tbody>`;
+  cols.forEach(c=>{
+    const key = c.toLowerCase().replace(/ /g,'');
+    html+=`<tr><td>${c}</td><td>${techniqueInfo[t1][key]||'—'}</td><td>${techniqueInfo[t2][key]||'—'}</td></tr>`;
+  });
+  html+=`</tbody></table>`;
+  document.getElementById('comparison-table').innerHTML = html;
+}
+document.getElementById('compare-select').addEventListener('change',renderComparison);
+window.addEventListener('load',renderComparison);
+</script>
+{% endblock %}

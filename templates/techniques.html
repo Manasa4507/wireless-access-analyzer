@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Learn Techniques{% endblock %}
+{% block content %}
+<h2 class="mb-4">Multiple Access Techniques</h2>
+<div class="accordion" id="techAccordion">
+  {% set techs = [
+    {"id":"fdma","name":"FDMA","full":"Frequency Division Multiple Access","def":"Divides the spectrum into separate frequency bands for each user.","principle":"Each user gets a unique frequency band.","allocation":"Frequency slots","adv":"Simple implementation, low interference.","disadv":"Inefficient spectrum usage.","apps":"Radio broadcasting, analog TV.","bandwidth":"Static per user.","explanation":"Users transmit simultaneously on distinct frequencies.","diagram":"fdma_diagram.png"},
+    {"id":"tdma","name":"TDMA","full":"Time Division Multiple Access","def":"Shares the same frequency but allocates distinct time slots.","principle":"Users transmit one after another in time.","allocation":"Time slots","adv":"Better spectrum reuse than FDMA.","disadv":"Requires precise timing, latency.","apps":"GSM, satellite links.","bandwidth":"Full bandwidth per slot.","explanation":"Each user gets the whole band but only for a brief burst.","diagram":"tdma_diagram.png"},
+    {"id":"cdma","name":"CDMA","full":"Code Division Multiple Access","def":"All users occupy the whole band using orthogonal codes.","principle":"Spreads each user’s signal with a unique code.","allocation":"Code space","adv":"High capacity, robust to interference.","disadv":"Complex receivers, near‑far problem.","apps":"3G, IS‑95, some IoT.","bandwidth":"Full bandwidth shared.","explanation":"Signals overlap but can be separated by correlation.","diagram":"cdma_diagram.png"},
+    {"id":"ofdma","name":"OFDMA","full":"Orthogonal Frequency Division Multiple Access","def":"Assigns groups of sub‑carriers to users.","principle":"FFT splits band into many narrow sub‑carriers.","allocation":"Sub‑carrier groups","adv":"Flexibility, supports variable rates.","disadv":"Higher signal processing load.","apps":"LTE, Wi‑Fi 6, 5G NR.","bandwidth":"Dynamic per user.","explanation":"Each user receives a subset of tones.","diagram":"ofdma_diagram.png"},
+    {"id":"sdma","name":"SDMA","full":"Space Division Multiple Access","def":"Separates users by spatial beams or antennas.","principle":"Multiple antennas form directed beams.","allocation":"Spatial beams","adv":"Very high capacity with massive MIMO.","disadv":"Hardware complexity, beamforming.","apps":"5G massive MIMO, radar.","bandwidth":"Full band per beam.","explanation":"Spatial separation reduces interference.","diagram":"sdma_diagram.png"}
+  ] %}
+  {% for tech in techs %}
+  <div class="accordion-item glass">
+    <h2 class="accordion-header" id="heading{{ tech.id }}">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ tech.id }}" aria-expanded="false" aria-controls="collapse{{ tech.id }}">
+        {{ tech.name }} – {{ tech.full }}
+      </button>
+    </h2>
+    <div id="collapse{{ tech.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ tech.id }}">
+      <div class="accordion-body">
+        <p><strong>Definition:</strong> {{ tech.def }}</p>
+        <p><strong>Working Principle:</strong> {{ tech.principle }}</p>
+        <p><strong>Resource Allocation:</strong> {{ tech.allocation }}</p>
+        <p><strong>Advantages:</strong> {{ tech.adv }}</p>
+        <p><strong>Disadvantages:</strong> {{ tech.disadv }}</p>
+        <p><strong>Applications:</strong> {{ tech.apps }}</p>
+        <p><strong>Bandwidth Utilization Concept:</strong> {{ tech.bandwidth }}</p>
+        <p><strong>Simple Technical Explanation:</strong> {{ tech.explanation }}</p>
+        {% if tech.diagram %}
+        <p><img src="{{ url_for('static', filename='images/' + tech.diagram) }}" alt="{{ tech.name }} diagram" class="img-fluid"></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

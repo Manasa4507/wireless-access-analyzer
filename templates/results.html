@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Results - Analysis {{ analysis.id }}{% endblock %}
+{% block content %}
+<h2 class="mb-4">Analysis Results (ID: {{ analysis.id }})</h2>
+<div class="mb-3">
+  <strong>Timestamp:</strong> {{ analysis.timestamp }}<br>
+  <strong>Total Bandwidth (MHz):</strong> {{ analysis.total_bw_mhz }}<br>
+  <strong>Number of Users:</strong> {{ analysis.num_users }}<br>
+  <strong>Per‑User Data Rate (Mbps):</strong> {{ analysis.per_user_rate_mbps }}<br>
+  <strong>SNR (dB):</strong> {{ analysis.snr_db }}<br>
+  <strong>Network Condition:</strong> {{ analysis.network_condition }}<br>
+  <strong>Channel Model:</strong> {{ analysis.channel_model }}
+</div>
+
+<table class="table table-dark table-striped">
+  <thead><tr><th>Technique</th><th>Spectral Efficiency (bits/s/Hz)</th><th>Total Rate (Mbps)</th><th>User Capacity</th><th>Bandwidth Util (%)</th><th>Interference (%)</th><th>Score</th></tr></thead>
+  <tbody>
+    {% for tech, r in analysis.results.items() %}
+    <tr>
+      <td>{{ tech }}</td>
+      <td>{{ r.spectral_efficiency_bpshz }}</td>
+      <td>{{ r.total_rate_mbps }}</td>
+      <td>{{ r.user_capacity }}</td>
+      <td>{{ r.bandwidth_utilization_pct }}</td>
+      <td>{{ r.interference_pct }}</td>
+      <td>{{ r.performance_score }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="row">
+  <div class="col-md-6"><canvas id="radarChart"></canvas></div>
+  <div class="col-md-6"><canvas id="barChart"></canvas></div>
+</div>
+
+<a href="{{ url_for('download_report', analysis_id=analysis.id) }}" class="btn btn-success mt-3">Download PDF Report</a>
+{% endblock %}
+{% block extra_js %}
+<script>
+  const results = {{ analysis.results | tojson }};
+  const labels = Object.keys(results);
+  const scoreData = labels.map(k => results[k].performance_score);
+  const spectralData = labels.map(k => results[k].spectral_efficiency_bpshz);
+  // Radar (Score)
+  const rc = document.getElementById('radarChart').getContext('2d');
+  new Chart(rc, {
+    type: 'radar',
+    data: { labels, datasets: [{ label: 'Performance Score', data: scoreData, backgroundColor: 'rgba(0,188,212,0.2)', borderColor: '#00bcd4' }] },
+    options: { responsive: true, plugins: { title: { display: true, text: 'Performance Score Radar' } } }
+  });
+  // Bar (Spectral Efficiency)
+  const bc = document.getElementById('barChart').getContext('2d');
+  new Chart(bc, {
+    type: 'bar',
+    data: { labels, datasets: [{ label: 'Spectral Efficiency (bits/s/Hz)', data: spectralData, backgroundColor: '#ff7043' }] },
+    options: { responsive: true, plugins: { title: { display: true, text: 'Spectral Efficiency Comparison' } } }
+  });
+</script>
+{% endblock %}

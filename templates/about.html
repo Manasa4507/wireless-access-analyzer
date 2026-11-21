@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}About Project{% endblock %}
+{% block content %}
+<h2 class="mb-4">About This Project</h2>
+<p><strong>Project:</strong> Multiple Access Techniques Comparison Tool</p>
+<p><strong>Subject:</strong> ITA0329 – Mobile Computing</p>
+<p><strong>Presented By:</strong></p>
+<ul>
+  <li>Manasa.M – 192425189</li>
+  <li>Gayathri.P – 192424324</li>
+</ul>
+<p><strong>Guided By:</strong> Dr. Saravanan.M.S</p>
+<hr>
+<h4>Abstract</h4>
+<p>This academic tool enables students to explore, compare, and analyse five fundamental multiple‑access techniques used in wireless communication. By entering system parameters, the backend computes deterministic performance metrics based on textbook models, visualises results with interactive charts, and produces a PDF report.</p>
+<h4>Introduction</h4>
+<p>Wireless networks must share limited spectrum among many users. Techniques such as FDMA, TDMA, CDMA, OFDMA, and SDMA provide different ways to allocate resources, each with trade‑offs in efficiency, interference, and implementation complexity.</p>
+<h4>Problem Statement</h4>
+<p>Students often struggle to understand how these techniques differ quantitatively. Existing textbooks provide qualitative descriptions but lack an interactive, computational sandbox.</p>
+<h4>Objectives</h4>
+<ul>
+  <li>Provide clear definitions and visual explanations of each technique.</li>
+  <li>Allow side‑by‑side comparison with deterministic calculations.</li>
+  <li>Visualise performance metrics through responsive charts.</li>
+  <li>Generate a downloadable PDF summarising the analysis.</li>
+</ul>
+<h4>Methodology</h4>
+<p>The application is built with Flask (backend), Bootstrap 5 (frontend), Chart.js (charts), NumPy (math), and ReportLab (PDF). All calculations are performed server‑side using Shannon capacity and technique‑specific efficiency factors.</p>
+<h4>Modules</h4>
+<ul>
+  <li>Learn Techniques – educational content.</li>
+  <li>Module 1 – deterministic side‑by‑side comparison tables.</li>
+  <li>Module 2 – user‑driven performance analysis with charts.</li>
+  <li>Results Dashboard – tabular summary and PDF export.</li>
+  <li>Analysis History – persistent SQLite storage.</li>
+</ul>
+<h4>SDG Contribution</h4>
+<p>Supports Quality Education (SDG 4) by providing an interactive learning platform for engineering students.</p>
+<h4>Conclusion</h4>
+<p>The tool demonstrates how theoretical models translate into concrete performance numbers, helping students grasp the impact of multiple‑access choices on wireless system design.</p>
+<h4>References</h4>
+<ul>
+  <li>Goldsmith, "Wireless Communications", Cambridge University Press, 2005.</li>
+  <li>Rappaport, "Wireless Communications: Principles and Practice", 2nd ed., 2002.</li>
+  <li>IEEE 802.11 and 802.16 standard documents.</li>
+</ul>
+{% endblock %}

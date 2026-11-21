@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Home – MA Techniques{% endblock %}
+{% block content %}
+<div class="text-center my-5">
+    <h1 class="display-4">Multiple Access Techniques Comparison Tool</h1>
+    <p class="lead">Analyze, Compare and Visualize Wireless Communication Techniques.</p>
+    <a href="{{ url_for('analysis') }}" class="btn btn-primary btn-lg mt-3">Start Analysis</a>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% set techniques = [
+        {"name": "FDMA", "full": "Frequency Division Multiple Access", "desc": "Divides the spectrum into separate frequency bands for each user."},
+        {"name": "TDMA", "full": "Time Division Multiple Access", "desc": "Shares the same frequency but allocates distinct time slots."},
+        {"name": "CDMA", "full": "Code Division Multiple Access", "desc": "All users occupy the whole band using orthogonal codes."},
+        {"name": "OFDMA", "full": "Orthogonal Frequency Division Multiple Access", "desc": "Assigns groups of sub‑carriers to users."},
+        {"name": "SDMA", "full": "Space Division Multiple Access", "desc": "Separates users by spatial beams or antennas."},
+    ] %}
+    {% for tech in techniques %}
+    <div class="col">
+        <div class="card h-100 glass">
+            <div class="card-body">
+                <h5 class="card-title">{{ tech.name }}</h5>
+                <h6 class="card-subtitle mb-2">{{ tech.full }}</h6>
+                <p class="card-text">{{ tech.desc }}</p>
+                <a href="{{ url_for('techniques') }}#{{ tech.name|lower }}" class="btn btn-primary btn-sm">Learn More</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

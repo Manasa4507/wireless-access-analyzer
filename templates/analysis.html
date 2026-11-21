@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Performance Analysis{% endblock %}
+{% block extra_head %}
+<style>
+  .form-control, .form-select { background-color: rgba(255,255,255,0.1); color:#e0eaff; border:none; }
+</style>
+{% endblock %}
+{% block content %}
+<h2 class="mb-4">Performance Analysis</h2>
+<form id="analysis-form" class="row g-3">
+  <div class="col-md-4">
+    <label class="form-label">Total Bandwidth (MHz)</label>
+    <input type="number" step="0.1" class="form-control" name="total_bw_mhz" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Number of Users</label>
+    <input type="number" class="form-control" name="num_users" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Per‑User Data Rate (Mbps)</label>
+    <input type="number" step="0.1" class="form-control" name="per_user_rate_mbps" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">SNR (dB)</label>
+    <input type="number" step="0.1" class="form-control" name="snr_db" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Network Condition</label>
+    <select class="form-select" name="network_condition" required>
+      <option>Low Traffic</option>
+      <option>Medium Traffic</option>
+      <option>High Traffic</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Channel Model</label>
+    <select class="form-select" name="channel_model" required>
+      <option>AWGN</option>
+      <option>Rayleigh Fading</option>
+      <option>Rician Fading</option>
+    </select>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Calculate Performance</button>
+    <button type="reset" class="btn btn-secondary ms-2">Reset</button>
+  </div>
+</form>
+
+<hr class="my-4">
+<div id="results-section" class="d-none">
+  <h3>Results</h3>
+  <div id="summary-table" class="table-responsive"></div>
+  <canvas id="spectralChart" class="my-4"></canvas>
+  <canvas id="rateChart" class="my-4"></canvas>
+  <canvas id="capacityChart" class="my-4"></canvas>
+  <canvas id="bandwidthChart" class="my-4"></canvas>
+  <canvas id="radarChart" class="my-4"></canvas>
+  <a id="download-pdf" href="#" class="btn btn-success mt-3">Download PDF Report</a>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}

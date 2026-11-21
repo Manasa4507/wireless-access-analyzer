@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}IEEE Standards{% endblock %}
+{% block content %}
+<h2 class="mb-4">IEEE Standards Overview</h2>
+<ul>
+  <li><strong>IEEE 802.11ax</strong> – Wi‑Fi 6, uses OFDMA and MU‑MIMO (spatial division).</li>
+  <li><strong>IEEE 802.16</strong> – Mobile WiMAX, employs OFDMA for broadband wireless access.</li>
+  <li><strong>IEEE 802.11‑2020</strong> – Consolidated Wi‑Fi standard, includes enhancements for OFDMA, TDMA‑like scheduling.</li>
+  <li><strong>IEEE 802.11be</strong> – Future Wi‑Fi 7, adds 4096‑QAM, wider channels, further OFDMA improvements.</li>
+  <li><strong>IEEE 802.16e</strong> – Mobile WiMAX with support for handover and adaptive modulation.</li>
+  <li><strong>IEEE 802.11ac</strong> – Wi‑Fi 5, introduces MU‑MIMO (spatial) and wider channel bonding.</li>
+  <li><strong>IEEE 802.11n</strong> – Early Wi‑Fi standard adding MIMO and optional HT‑OFDM.</li>
+</ul>
+<p>All of the above standards rely on some form of multiple‑access technique to share the wireless medium among many users. OFDMA is the most common in modern Wi‑Fi and cellular systems, while older standards relied on CSMA/CA combined with TDMA‑like slotting for efficiency.</p>
+{% endblock %}
